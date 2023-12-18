@@ -3,7 +3,7 @@ const config = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
+        source: "/:_path*",
         "has": [
           {
             "type": "query",

@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "next": "next",
-    "build": "next build"
+    "build": "next build",
+    "dev": "PORT=4000 next dev"
   },
   "dependencies": {
     "next": "canary",

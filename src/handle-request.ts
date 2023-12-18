@@ -33,7 +33,13 @@ export default async function handleRequest(request: NextRequest & { nextUrl?: U
   // -d '{ "prompt": { "text": "Write a story about a magic backpack"} }' \
   // "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key={YOUR_KEY}"
 
-  const url = new URL(pathname + `?key=${searchParams.get('key')}`, "https://generativelanguage.googleapis.com").href;
+  const url = new URL(pathname, "https://generativelanguage.googleapis.com");
+  searchParams.delete("_path");
+
+  searchParams.forEach((value, key) => {
+    url.searchParams.append(key, value);
+  });
+
   const headers = pickHeaders(request.headers, ["content-type"]);
 
   const response = await fetch(url, {
