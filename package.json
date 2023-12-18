@@ -1,0 +1,19 @@
+{
+  "name": "palm-proxy",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "typescript": "^5.3.3"
+  },
+  "private": true,
+  "scripts": {
+    "next": "next",
+    "build": "next build"
+  },
+  "dependencies": {
+    "next": "canary",
+    "react": "latest",
+    "react-dom": "latest"
+  }
+}
