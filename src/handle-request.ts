@@ -15,8 +15,8 @@ const pickHeaders = (headers: Headers, keys: (string | RegExp)[]): Headers => {
 
 const CORS_HEADERS: Record<string, string> = {
   "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "Content-Type",
+  "access-control-allow-methods": "*",
+  "access-control-allow-headers": "*",
 };
 
 export default async function handleRequest(request: NextRequest & { nextUrl?: URL }) {
@@ -40,7 +40,7 @@ export default async function handleRequest(request: NextRequest & { nextUrl?: U
     url.searchParams.append(key, value);
   });
 
-  const headers = pickHeaders(request.headers, ["content-type"]);
+  const headers = pickHeaders(request.headers, ["content-type", "x-goog-api-client", "x-goog-api-key"]);
 
   const response = await fetch(url, {
     body: request.body,
@@ -50,9 +50,7 @@ export default async function handleRequest(request: NextRequest & { nextUrl?: U
 
   const responseHeaders = {
     ...CORS_HEADERS,
-    ...Object.fromEntries(
-      pickHeaders(response.headers, ["content-type"])
-    ),
+    ...Object.fromEntries(response.headers)
   };
 
   return new Response(response.body, {
